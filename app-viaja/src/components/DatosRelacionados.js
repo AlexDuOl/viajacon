@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {withRouter } from 'react-router-dom/cjs/react-router-dom.min';
-import axios from 'axios';
-import Especial from '../modelos/Especial';
+//import axios from 'axios';
+//import Especial from '../modelos/Especial';
 
 class DatosRelacionados extends Component {
     constructor(props) {
@@ -12,7 +12,7 @@ class DatosRelacionados extends Component {
     }
 
     componentDidMount(){
-        let {folio} = this.props.match.params;
+        /*let {folio} = this.props.match.params;
             axios.get(`http://tapi.sumaenlinea.mx/especiales/${folio}`)
             .then((response) => {
                 const especial = new Especial(response.data.data);
@@ -29,7 +29,8 @@ class DatosRelacionados extends Component {
                     destino: especial.destino,
                     direccionDestino: especial.direccionOrigen
                 })
-        })
+        })*/
+        console.log('entramos');
     }
 
     render(){
