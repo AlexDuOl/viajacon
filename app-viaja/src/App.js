@@ -1,8 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import DatosAtributos from './components/DatosAtributos'
 import Inicio from './components/Inicio';
-import DatosRelaciones from './components/DatosRelacionados';
+import Informacion from './components/Informacion'
 
 export default function App() {
   return (
@@ -13,10 +12,7 @@ export default function App() {
             <Link to="/">Inicio</Link>
           </li>
           <li>
-            <Link to="/datos_atributos">Datos Atributos</Link>
-          </li>
-          <li>
-            <Link to="/datos_relacionados">Datos Relacionados</Link>
+            <Link to="/informacion">Información</Link>
           </li>
         </ul>
 
@@ -26,12 +22,9 @@ export default function App() {
           <Route exact path="/">
             <Inicio />
           </Route>
-          <Route path="/datos_atributos/:folio">
-            <DatosAtributos />
+          <Route path="/informacion/:folio">
+            <Informacion />
           </Route>
-          <Router>
-            <DatosRelaciones path="/datos_relacionados/:folio"/>
-          </Router>
         </Switch>
       </div>
     </Router>
