@@ -7,8 +7,8 @@ import 'semantic-ui-css/semantic.min.css'
 class Informacion extends Component  {
         constructor(props) {
             super(props);
-            this.state ={
-                id: -1,
+            this.state = {
+                especial: null,
             }
           }
 
@@ -16,73 +16,98 @@ class Informacion extends Component  {
           let {folio} = this.props.match.params;
           axios.get(`http://tapi.sumaenlinea.mx/especiales/${folio}`)
           .then((response) => {
-            const especial = new Especial(response.data.data);
-
-            console.log(especial)
             this.setState({
-              id: especial.id,
-              tipo: especial.tipo,
-              contacto: especial.contacto,
-              email: especial.email,
-              celular: especial.celular,
-              telefono: especial.telefono,
-              origen: especial.origen,
-              direccionOrigen: especial.direccionOrigen,
-              destino: especial.destino,
-              direccionDestino: especial.direccionOrigen,
-              clienteCategoria: especial.cliente.attributes.categoria.etiqueta,
-              clienteLogo: especial.cliente.attributes.logoEmpresa,
-              clienteNombre: especial.cliente.attributes.nombreEmpresa,
-              usuario: especial.usuario.attributes,
-              usuarioNombre: especial.usuario.attributes.nombre,
-              usuarioEmail: especial.usuario.attributes.email,
-              usuarioTelefono: especial.usuario.attributes.numeroTelefono,
-              usuarioFoto: especial.usuario.attributes.fotografia,
-          })
-
+              especial: new Especial(response.data.data)
+            })
           })
         }
 
       render(){
+        /** @type {Especial} */
+        const especial = this.state.especial
+
+        if(!especial) {
+          return( 
+            <div>
+              <h2>Inicio</h2>
+            </div>
+          )
+        } else {
           return (
               <div>
-                <br />
-                <br />
                 <h2>Información</h2>
                 <br />
                 <div>
                   <h3>Datos del Servicio</h3>
-                  <p>{this.state.id}</p>
-                  <p>{this.state.tipo}</p>
-                  <p>{this.state.contacto}</p>
-                  <p>{this.state.email}</p>
-                  <p>{this.state.celular}</p>
-                  <p>{this.state.telefono}</p>
-                  <p>{this.state.origen}</p>
-                  <p>{this.state.direccionOrigen}</p>
-                  <p>{this.state.destino}</p>
-                  <p>{this.state.direccionDestino}</p>
+                  <p>Id: {especial.id}</p>
+                  <p>Tipo: {especial.tipo}</p>
+                  <p>Nombre: {especial.contactoNombre}</p>
+                  <p>Email: {especial.contactoEmail}</p>
+                  <p>Celular: {especial.contactoNumeroCelular}</p>
+                  <p>Teléfono: {especial.contactoNumeroTelefono}</p>
+                  <p>Origen: {especial.lugarOrigen}</p>
+                  <p>Dirección origen: {especial.direccionOrigen}</p>
+                  <p>Destino: {especial.lugarDestino}</p>
+                  <p>Dirección destino: {especial.direccionDestino}</p>
                 </div>
                 <br />
-                <div>
-                  <h3>Datos del Usuario</h3>
-                  <p>{this.state.usuarioNombre}</p>
-                  <p>{this.state.usuarioEmail}</p>
-                  <p>{this.state.usuarioTelefono}</p>
-                  <p>{this.state.usuarioFoto}</p>
-                </div>
+                <InformacionUsuario usuario={especial.getUsuario()}/>
                 <br />
-                <div>
-                  <h3>Datos del Cliente</h3>
-                  <p>{this.state.clienteNombre}</p>
-                  <p>{this.state.clienteCategoria}</p>
-                  <p>{this.state.clienteLogo}</p>
-                </div>
-
-                
+                { especial.getCliente() &&
+                  <InformacionCliente cliente={especial.getCliente()}/>
+                }
+                <br />
+                { especial.getProveedor() &&
+                  <InformacionProveedor proveedor={especial.getProveedor()}/>
+                }
               </div>
             );
+          }
       }
+}
+
+function InformacionCliente({cliente}) {
+  /** @type {Cliente} */
+  const infoCliente = cliente;
+
+  return (
+    <div>
+      <h3>Datos del Cliente</h3>
+      <p>Empresa: {infoCliente.nombreEmpresa}</p>
+      <p>Logo: {infoCliente.logoEmpresa}</p>
+      <p>Categoría: {infoCliente.categoria.etiqueta}</p>
+    </div>
+  )
+}
+
+function InformacionUsuario({ usuario }) {
+  /** @type {Usuario} */
+  const infoUsuario = usuario;
+
+    return (
+      <div>
+        <h3>Datos del Usuario</h3>
+        <p>Nombre: {infoUsuario.nombre}</p>
+        <p>Email: {infoUsuario.email}</p>
+        <p>Teléfono: {infoUsuario.numeroTelefono}</p>
+        <p>Fotografía: {infoUsuario.fotografia}</p>
+      </div>
+    )
+}
+
+function  InformacionProveedor({ proveedor }) {
+  /** @type {Proveedor} */
+  const infoProveedor = proveedor;
+
+    return (
+      <div>
+        <h3>Datos del Proveedor</h3>
+        <p>Nombre: {infoProveedor.nombre}</p>
+        <p>Email: {infoProveedor.email}</p>
+        <p>Teléfono: {infoProveedor.numeroTelefono}</p>
+        <p>Contacto: {infoProveedor.tipoContacto}</p>
+      </div>
+    )
 }
 
 export default withRouter(Informacion)
