@@ -12,12 +12,14 @@ class Especial extends BaseModel {
         this.contactoEmail = this.getAttribute('contactoEmail')
         this.contactoNumeroCelular = this.getAttribute('contactoNumeroCelular')
         this.contactoNumeroTelefono = this.getAttribute('contactoNumeroTelefono')
+        this.contratoWeb = this.getAttribute('contratoWeb')
         this.lugarOrigen = this.getAttribute('lugarOrigen')
         this.direccionOrigen = this.getAttribute('direccionOrigen')
         this.lugarDestino = this.getAttribute('lugarDestino')
         this.direccionDestino = this.getAttribute('direccionDestino')
+        this.tiempoInicial = this.getAttribute('tiempoInicial')
+        this.tiempoFinal = this.getAttribute('tiempoFinal')
       }
-    
     /** @returns {Cliente} */
     getCliente(){
       if(!this.cliente){

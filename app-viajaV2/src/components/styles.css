@@ -1,0 +1,30 @@
+.general-container{
+    background-color: #fff;
+    width: 80%;
+    margin: 3% 10%;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.section-container {
+    width: 95%;
+    background-color: rgba(233, 233, 233, 0.603);
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.logo img {
+    padding: 5px;
+}
+
+p {
+    line-height: 1!important;
+    font-size: 13px;
+}
+
+p span {
+    font-weight: 700;
+}

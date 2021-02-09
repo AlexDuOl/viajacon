@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
-import Bitacora from '../modelos/Bitacora/Bitacora';
-import Proveedor from '../modelos/Bitacora/Proveedor';
-import Unidad from '../modelos/Bitacora/Unidad';
-import Operador from '../modelos/Bitacora/Operador';
+import Bitacora from '../modelos/bitacora/Bitacora';
 import axios from 'axios';
 import 'semantic-ui-css/semantic.min.css'
 
@@ -27,12 +24,11 @@ class BitacoraComponent extends Component {
     }
 
     render(){
-        //console.log(bitacora);
         /** 
          * @type {Bitacora}
          */
         const bitacora = this.state.bitacora
-
+        
         if(!bitacora) {
             return (
                 <div>
@@ -42,6 +38,10 @@ class BitacoraComponent extends Component {
         } else {
             return (
                 <div>
+                <div className="section-container">
+                  
+                  </div>
+
                     <h2>Bitacora</h2>
                     <br />
                     <div>
@@ -53,7 +53,15 @@ class BitacoraComponent extends Component {
                       <p>Id de Servicio Especial: {bitacora.idServicioEspecial}</p>
                     </div>
                     <br />
-
+                    <BitacoraProveedor proveedor={bitacora.getProveedor()}/>
+                    <br />
+                    { bitacora.getUnidad() &&
+                    <BitacoraUnidad unidad={bitacora.getUnidad()}/>
+                    }
+                    <br />
+                    { bitacora.getOperador() &&
+                    <BitacoraOperador operador={bitacora.getOperador()}/>
+                    }
                     <br />
                 </div>
             )
@@ -68,10 +76,10 @@ function BitacoraProveedor({ proveedor }) {
     return (
         <div>
           <h3>Datos del Proveedor</h3>
-          <p>Nombre: {infoCliente.nombre}</p>
-          <p>Email: {infoCliente.email}</p>
-          <p>Número de teléfono: {infoCliente.numeroTelefono}</p>
-          <p>Contacto: {infoCliente.tipoContacto}</p>
+          <p>Nombre: {infoProveedor.nombre}</p>
+          <p>Email: {infoProveedor.email}</p>
+          <p>Número de teléfono: {infoProveedor.numeroTelefono}</p>
+          <p>Contacto: {infoProveedor.tipoContacto}</p>
         </div>
     )
 }
@@ -83,9 +91,12 @@ function BitacoraUnidad({ unidad }) {
     return (
         <div>
           <h3>Datos del Unidad</h3>
-          <p></p>
-          <p></p>
-          <p></p>
+          <p>Id: {infoUnidad.numeroEconomico}</p>
+          <p>Tipo: {infoUnidad.tipo}</p>
+          <p>Fotografía: {infoUnidad.fotografia}</p>
+          <p>GPS: {infoUnidad.gps}</p>
+          <p>Pasajeros: {infoUnidad.pasajeros}</p>
+          <p>Placas: {infoUnidad.placasFederales}</p>
         </div>
     )
 }
@@ -97,9 +108,10 @@ function BitacoraOperador({ operador }) {
     return (
         <div>
           <h3>Datos del Operador</h3>
-          <p></p>
-          <p></p>
-          <p></p>
+          <p>Nombre:{infoOperador.nombre} </p>
+          <p>Email: {infoOperador.email}</p>
+          <p>Teléfono: {infoOperador.numeroTelefono}</p>
+          <p>Fotografía: {infoOperador.fotografia}</p>
         </div>
     )
 }

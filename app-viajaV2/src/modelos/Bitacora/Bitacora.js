@@ -28,7 +28,7 @@ class Bitacora extends BaseModel {
         if(!this.operador){
             this.operador = this.getRelationData('operador') ? new Operador(this.getRelationData('operador')) : null
         }
-        return this.operado
+        return this.operador
     }
 
     /** @returns {Unidad} */
