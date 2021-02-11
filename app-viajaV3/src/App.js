@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Informacion from './components/Informacion';
 import BitacoraComponent from './components/BitacoraComponent';
@@ -7,9 +7,10 @@ import 'semantic-ui-css/semantic.min.css'
 
 export default function App() {
 
- function getData(event) {
-   console.log(event.target.value);
- }
+  function getData(event) {
+    console.log(event.target.value);
+  }
+
   function enviar() {
     console.log('Click');
   }
@@ -37,14 +38,16 @@ export default function App() {
               </div>
             </div>
           </Route>
-          <div className="sections-container">
-            <Route path="/informacion/:folio">
-              <Informacion />
-            </Route>
-            <Route>
-              <BitacoraComponent path="/bitacoras/?id_servicio_especial=:folio" />
-            </Route>
-          </div>
+          <Fragment>
+            <div className="sections-container">
+              <Route path="/informacion/:folio">
+                <Informacion />
+              </Route>
+              <Route path="/bitacoras/?id_servicio_especial=:folio">
+                <BitacoraComponent />
+              </Route>
+            </div>
+          </Fragment>
         </Switch>
 
     </Router>
